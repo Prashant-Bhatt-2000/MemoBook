@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}MemoBook{% endblock %}
+
+
+{% block content %}
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Message : </strong> {{message}}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% elif message.tags == 'error' %}    
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Message : </strong> {{message}}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>     
+        {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+
+    
+  <div class="container-fluid h-100 d-flex justify-content-center align-items-center">
+    <!-- The content will be centered both horizontally and vertically -->
+
+    <div class="col-md-3 mt-4">
+      <h1 class="text-center">Memo Book</h1>
+      <div class="card ml-4 mt-4">
+        <div class="card-body">
+          <h4 class="card-title text-center">Make your new Memo on MemoBook</h4>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3 mt-4">
+              <label for="exampleInputName" class="form-label">Task</label>
+              <input type="text" class="form-control" name="memo" id="exampleInputName" aria-describedby="nameHelp">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-success">Add Task</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

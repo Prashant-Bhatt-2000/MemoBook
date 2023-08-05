@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+
+        <div class="row justify-content-center">
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Message : </strong> {{message}}.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    {% elif message.tags == 'error' %}    
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Message : </strong> {{message}}.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>     
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% comment %} ================================================================ {% endcomment %}
+
+            {% comment %} Registration Form {% endcomment %}
+            <div class="col-md-6">
+                <h1>Memo Book</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Register your Account for MemoBook</h4>
+                        <form method = 'POST'>
+                            {% csrf_token %}
+                            <div class="mb-3 mt-4">
+                                <label for="exampleInputName" class="form-label">Username</label>
+                                <input type="text" class="form-control" name='name' id="exampleInputName" aria-describedby="nameHelp">
+                            </div>
+                            <div class="mb-3 mt-4">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Register</button>
+                           <a href='/login'> <button href='/login' type="button" class="btn btn-primary">Login</button></a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

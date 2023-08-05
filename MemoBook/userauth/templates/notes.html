@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Your All memos{% endblock %}
+
+{% block content %}
+<style>
+    /* Custom border class */
+    .custom-border {
+      border: 2px solid #ced4da;
+      border-radius: 8px; 
+      padding: 10px;
+    }
+</style>
+{% if messages %}
+{% for message in messages %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Message : </strong> {{message}}.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% elif message.tags == 'error' %}    
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Message : </strong> {{message}}.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>     
+    {% endif %}
+{% endfor %}
+{% endif %}
+
+<div class="container mt-4 d-flex justify-content-center">
+    <div class="col-md-6">
+        <h1>Your all Memo's</h1>
+        <div class="accordion accordion-flush custom-border mt-5" id="accordionFlushExample">
+            <div class="accordion-item">
+                {% if memo.count > 0 %}
+                {% for memo in memo %}
+                <h5>{{ memo.date }}</h5>
+                <div class='d-flex'>
+                    <div class="d-flex alert alert-primary ml-10" role="alert" style='width: 39rem'>
+                        <div class='memo' style='width: 10rem'>
+                            {{ memo.memo }}
+                        </div>
+                        <div class= 'd-flex icons ml-10'>
+                            {% load static %}
+                            <div class= 'delete'  style='margin-left: 25rem'>
+                                <a href="{% url 'delete_memo' memo.id %}">
+                                    <img src="{% static 'Completed.png' %}" alt="Completed" style='height : 30px'>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class='d-flex'>
+                    <div class="d-flex alert alert-primary ml-10" role="alert" style='width: 39rem'>
+                        <div class='memo' style='width: 10rem'>
+                            No Tasks Left
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
